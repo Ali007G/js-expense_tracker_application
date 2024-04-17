@@ -20,7 +20,7 @@ function  renderExpenses() {
         });
 
         expenseList.innerHTML = html;
-        totalExpenses.innerText = `Total Expenses: $`;
+        totalExpenses.innerText = `Total Expenses: $${total}`;
 
 }
 
@@ -44,6 +44,23 @@ function addExpense() {
 
 addExpenseBtn.addEventListener("click", addExpense);
 
-function deleteExpense() {
+function deleteExpense(index) {
+
+    total -= expenses(index).amount;
+    expenses.splice(index,1)
+    renderExpenses();
 
 }
+
+expenseList.addEventListener("click",function(event){
+
+    if(event.target.classList.contains("delete-expense-btn")){
+
+        const index = Array.from(event.target.parentNode.parentNode.children)
+        .indexOf(event.target.parentNode);
+
+        deleteExpense(index);
+    }
+
+});
+
